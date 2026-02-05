@@ -31,3 +31,38 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Java ###
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+
+### Maven ###
+.mvn/
+mvnw
+mvnw.cmd
+
+### IDE ###
+.settings/
+*.swp
+*.swo
+
+### Logs ###
+logs/
+*.log
+
+### Environment files ###
+.env
+.env.local
+.env.production
+
+### Application properties ###
+application-dev.properties
+application-local.properties
+
+### OS ###
+.DS_Store
+Thumbs.db
