@@ -1,0 +1,45 @@
+# Ignore build artifacts
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Ignore Maven wrapper
+.mvn/
+mvnw
+mvnw.cmd
+
+# Ignore IDE files
+.idea/
+.vscode/
+.settings/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+
+# Ignore git
+.git/
+.gitignore
+
+# Ignore logs
+logs/
+*.log
+
+# Ignore test files
+src/test/
+
+# Ignore environment files
+.env
+.env.local
+.env.production
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore documentation
+README.md
+HELP.md
