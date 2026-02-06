@@ -184,23 +184,23 @@ function App() {
                 Personal Finance Tracker
               </h1>
               <p className="text-xl text-blue-100 mb-8">
-                Secure. Private. Only for you, Issa Mluleki Velem.
+                Take control of your finances. Track, analyze, and grow your wealth.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                 <div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm">
                   <div className="text-2xl mb-2">🔒</div>
-                  <h3 className="font-bold text-lg mb-2">Secure Backend</h3>
-                  <p className="text-blue-100">Data stored in Supabase with Spring Boot security</p>
+                  <h3 className="font-bold text-lg mb-2">Bank-Level Security</h3>
+                  <p className="text-blue-100">Your data is encrypted and protected with enterprise-grade security</p>
                 </div>
                 <div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm">
                   <div className="text-2xl mb-2">📊</div>
-                  <h3 className="font-bold text-lg mb-2">Monthly Tracking</h3>
-                  <p className="text-blue-100">Auto-switches to current month, keeps all history</p>
+                  <h3 className="font-bold text-lg mb-2">Smart Tracking</h3>
+                  <p className="text-blue-100">Automatic monthly organization and complete transaction history</p>
                 </div>
                 <div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm">
                   <div className="text-2xl mb-2">📈</div>
-                  <h3 className="font-bold text-lg mb-2">Visual Analytics</h3>
-                  <p className="text-blue-100">Charts and insights into your spending</p>
+                  <h3 className="font-bold text-lg mb-2">Visual Insights</h3>
+                  <p className="text-blue-100">Beautiful charts and analytics to understand your spending</p>
                 </div>
               </div>
             </div>
@@ -213,10 +213,10 @@ function App() {
           <div className="bg-gray-800 text-white py-8 px-4">
             <div className="max-w-7xl mx-auto text-center">
               <p className="text-gray-400">
-                Personal Finance Tracker • Built for Issa Mluleki Velem • {new Date().getFullYear()}
+                Finance Tracker © {new Date().getFullYear()} • All Rights Reserved
               </p>
               <p className="text-gray-500 text-sm mt-2">
-                Spring Boot Backend • Supabase Database • React Frontend
+                Secure • Private • Encrypted
               </p>
             </div>
           </div>

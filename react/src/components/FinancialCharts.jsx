@@ -126,6 +126,14 @@ function FinancialCharts({ transactions }) {
       setLoading(false);
     }
   }, [transactions, currentYear]);
+
+  // Custom label for mobile - shorter format
+  const renderCustomLabel = ({ name, percent }) => {
+    if (window.innerWidth < 640) {
+      return `${(percent * 100).toFixed(0)}%`;
+    }
+    return `${name}: ${(percent * 100).toFixed(0)}%`;
+  };
   
   if (loading) {
     return (
@@ -144,23 +152,28 @@ function FinancialCharts({ transactions }) {
   }
   
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       {/* Monthly Income vs Expenses Chart */}
-      <div className="bg-white rounded-xl shadow p-6">
-        <h3 className="text-xl font-semibold text-gray-800 mb-6">
+      <div className="bg-white rounded-xl shadow p-4 md:p-6">
+        <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4 md:mb-6">
           {currentYear} Monthly Overview
         </h3>
-        <div className="h-80">
+        <div className="h-64 md:h-80">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={monthlyData}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip 
-                formatter={(value) => [`$${value.toFixed(2)}`, 'Amount']}
-                labelFormatter={(label) => `Month: ${label}`}
+              <XAxis 
+                dataKey="name" 
+                tick={{ fontSize: 12 }}
+                interval={window.innerWidth < 640 ? 1 : 0}
               />
-              <Legend />
+              <YAxis tick={{ fontSize: 12 }} />
+              <Tooltip 
+                formatter={(value) => [`R${value.toFixed(2)}`, 'Amount']}
+                labelFormatter={(label) => `Month: ${label}`}
+                contentStyle={{ fontSize: '14px' }}
+              />
+              <Legend wrapperStyle={{ fontSize: '14px' }} />
               <Bar dataKey="income" name="Income" fill="#10b981" />
               <Bar dataKey="expenses" name="Expenses" fill="#ef4444" />
             </BarChart>
@@ -170,11 +183,11 @@ function FinancialCharts({ transactions }) {
       
       {/* Expense Categories Pie Chart */}
       {expenseData.length > 0 && (
-        <div className="bg-white rounded-xl shadow p-6">
-          <h3 className="text-xl font-semibold text-gray-800 mb-6">
+        <div className="bg-white rounded-xl shadow p-4 md:p-6">
+          <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4 md:mb-6">
             Expense Categories (Current Month)
           </h3>
-          <div className="h-80">
+          <div className="h-64 md:h-80">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -182,8 +195,8 @@ function FinancialCharts({ transactions }) {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                  outerRadius={80}
+                  label={renderCustomLabel}
+                  outerRadius={window.innerWidth < 640 ? 60 : 80}
                   fill="#8884d8"
                   dataKey="value"
                 >
@@ -191,20 +204,35 @@ function FinancialCharts({ transactions }) {
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value) => [`$${value.toFixed(2)}`, 'Amount']} />
+                <Tooltip 
+                  formatter={(value) => [`R${value.toFixed(2)}`, 'Amount']}
+                  contentStyle={{ fontSize: '14px' }}
+                />
               </PieChart>
             </ResponsiveContainer>
+          </div>
+          {/* Legend for mobile */}
+          <div className="mt-4 grid grid-cols-2 gap-2 sm:hidden">
+            {expenseData.map((entry, index) => (
+              <div key={index} className="flex items-center text-xs">
+                <div 
+                  className="w-3 h-3 rounded-full mr-2 flex-shrink-0" 
+                  style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                />
+                <span className="truncate">{entry.name}</span>
+              </div>
+            ))}
           </div>
         </div>
       )}
       
       {/* Income Categories Pie Chart */}
       {incomeData.length > 0 && (
-        <div className="bg-white rounded-xl shadow p-6">
-          <h3 className="text-xl font-semibold text-gray-800 mb-6">
+        <div className="bg-white rounded-xl shadow p-4 md:p-6">
+          <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4 md:mb-6">
             Income Sources (Current Month)
           </h3>
-          <div className="h-80">
+          <div className="h-64 md:h-80">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -212,8 +240,8 @@ function FinancialCharts({ transactions }) {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                  outerRadius={80}
+                  label={renderCustomLabel}
+                  outerRadius={window.innerWidth < 640 ? 60 : 80}
                   fill="#8884d8"
                   dataKey="value"
                 >
@@ -221,36 +249,51 @@ function FinancialCharts({ transactions }) {
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value) => [`$${value.toFixed(2)}`, 'Amount']} />
+                <Tooltip 
+                  formatter={(value) => [`R${value.toFixed(2)}`, 'Amount']}
+                  contentStyle={{ fontSize: '14px' }}
+                />
               </PieChart>
             </ResponsiveContainer>
+          </div>
+          {/* Legend for mobile */}
+          <div className="mt-4 grid grid-cols-2 gap-2 sm:hidden">
+            {incomeData.map((entry, index) => (
+              <div key={index} className="flex items-center text-xs">
+                <div 
+                  className="w-3 h-3 rounded-full mr-2 flex-shrink-0" 
+                  style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                />
+                <span className="truncate">{entry.name}</span>
+              </div>
+            ))}
           </div>
         </div>
       )}
       
       {/* Yearly Summary */}
-      <div className="bg-white rounded-xl shadow p-6">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-xl shadow p-4 md:p-6">
+        <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4">
           {currentYear} Yearly Summary
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
           <div className="bg-green-50 p-4 rounded-lg">
-            <p className="text-sm text-green-600">Total Income</p>
-            <p className="text-2xl font-bold text-green-700">
+            <p className="text-xs md:text-sm text-green-600 mb-1">Total Income</p>
+            <p className="text-xl md:text-2xl font-bold text-green-700">
               R{yearlySummary.totalIncome.toFixed(2)}
             </p>
           </div>
           <div className="bg-red-50 p-4 rounded-lg">
-            <p className="text-sm text-red-600">Total Expenses</p>
-            <p className="text-2xl font-bold text-red-700">
+            <p className="text-xs md:text-sm text-red-600 mb-1">Total Expenses</p>
+            <p className="text-xl md:text-2xl font-bold text-red-700">
               R{yearlySummary.totalExpenses.toFixed(2)}
             </p>
           </div>
           <div className={`p-4 rounded-lg ${yearlySummary.balance >= 0 ? 'bg-blue-50' : 'bg-orange-50'}`}>
-            <p className={`text-sm ${yearlySummary.balance >= 0 ? 'text-blue-600' : 'text-orange-600'}`}>
+            <p className={`text-xs md:text-sm mb-1 ${yearlySummary.balance >= 0 ? 'text-blue-600' : 'text-orange-600'}`}>
               Yearly Balance
             </p>
-            <p className={`text-2xl font-bold ${yearlySummary.balance >= 0 ? 'text-blue-700' : 'text-orange-700'}`}>
+            <p className={`text-xl md:text-2xl font-bold ${yearlySummary.balance >= 0 ? 'text-blue-700' : 'text-orange-700'}`}>
               R{yearlySummary.balance.toFixed(2)}
             </p>
           </div>

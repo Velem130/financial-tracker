@@ -112,10 +112,7 @@ function Dashboard({
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <>
-          <div 
-            className="lg:hidden fixed inset-0 z-40 bg-black bg-opacity-30"
-            onClick={() => setIsMenuOpen(false)}
-          ></div>
+         
           <div className="lg:hidden fixed right-0 top-0 h-full w-64 bg-white shadow-lg z-50 p-6">
             <div className="mb-8">
               <h2 className="text-lg font-bold text-blue-600 mb-2">Finance Tracker</h2>
